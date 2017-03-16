@@ -18,48 +18,31 @@
             android:layout_height="wrap_content"
             android:background="#2e6e9c">
             <ImageButton
-                android:layout_width="97dp"
-                android:layout_height="60dp"
+                style="@style/ButtonStyle"
                 android:src="@drawable/coffeeicon"
-                android:scaleType="centerInside"
                 android:id="@+id/coffeesButton"
                 />
             <ImageButton
-                android:layout_width="97dp"
-                android:layout_height="60dp"
+                style="@style/ButtonStyle"
                 android:src="@drawable/drink"
-                android:scaleType="centerInside"
                 android:id="@+id/drinksButton"
                 />
             <ImageButton
-                android:layout_width="97dp"
-                android:layout_height="60dp"
+                style="@style/ButtonStyle"
                 android:src="@drawable/cake"
-                android:scaleType="centerInside"
                 android:id="@+id/cakesButton"
                 />
             <ImageButton
-                android:layout_width="97dp"
-                android:layout_height="60dp"
+                style="@style/ButtonStyle"
                 android:src="@drawable/sandwich"
-                android:scaleType="centerInside"
                 android:id="@+id/sandwichButton"
                 />
             <ImageButton
-                android:layout_width="97dp"
-                android:layout_height="60dp"
-                android:scaleType="centerInside"
+                style="@style/ButtonStyle"
                 />
             <ImageButton
-                android:layout_width="97dp"
-                android:layout_height="60dp"
-                android:scaleType="centerInside"
-                />
-            <ImageButton
-                android:layout_width="97dp"
-                android:layout_height="60dp"
+                style="@style/ButtonStyle"
                 android:src="@drawable/menuicon"
-                android:scaleType="centerInside"
                 android:id="@+id/menuButton"
                 />
         </LinearLayout>

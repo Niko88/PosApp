@@ -4,7 +4,6 @@ package com.example.nicholasesposito.posapp.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.nicholasesposito.posapp.R;
 import com.example.nicholasesposito.posapp.adapters.OptionsAdapter;
-import com.example.nicholasesposito.posapp.services.DataService;
+import com.example.nicholasesposito.posapp.services.OptionsDataService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,14 +71,16 @@ public class OptionsFragment extends Fragment {
         OptionsAdapter adapter;
 
         if(option_type == OPTION_TYPE_COFFEE){
-            adapter = new OptionsAdapter(DataService.getInstance().getCoffeeOptions());
+            adapter = new OptionsAdapter(OptionsDataService.getInstance().getCoffeeOptions());
         }else if (option_type == OPTION_TYPE_DRINK)
-        {adapter = new OptionsAdapter(DataService.getInstance().geDrinksOptions());}
-        else {adapter = new OptionsAdapter(DataService.getInstance().geDrinksOptions());}
+        {adapter = new OptionsAdapter(OptionsDataService.getInstance().geDrinksOptions());}
+        else if (option_type == OPTION_TYPE_CAKE)
+        {adapter = new OptionsAdapter(OptionsDataService.getInstance().getCakesOptions());}
+        else {adapter = new OptionsAdapter(OptionsDataService.getInstance().geDrinksOptions());}
 
         recyclerView.setAdapter(adapter);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),5);
         recyclerView.setLayoutManager(gridLayoutManager);
 
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

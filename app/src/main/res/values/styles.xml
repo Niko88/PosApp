@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonStyle">
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@drawable/round_corners</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">90dp</item>
+
+    </style>
+
 </resources>
