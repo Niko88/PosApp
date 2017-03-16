@@ -1,7 +1,9 @@
-package com.example.nicholasesposito.posapp;
+package com.example.nicholasesposito.posapp.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.nicholasesposito.posapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
