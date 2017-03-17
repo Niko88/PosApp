@@ -76,7 +76,7 @@ public class OptionsFragment extends Fragment {
         {adapter = new OptionsAdapter(OptionsDataService.getInstance().geDrinksOptions());}
         else if (option_type == OPTION_TYPE_CAKE)
         {adapter = new OptionsAdapter(OptionsDataService.getInstance().getCakesOptions());}
-        else {adapter = new OptionsAdapter(OptionsDataService.getInstance().geDrinksOptions());}
+        else {adapter = new OptionsAdapter(OptionsDataService.getInstance().getSandwichesOptions());}
 
         recyclerView.setAdapter(adapter);
 

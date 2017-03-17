@@ -13,22 +13,22 @@ import com.example.nicholasesposito.posapp.model.Option;
  */
 
 public class OptionsViewHolder extends RecyclerView.ViewHolder {
+    //ViewHolder class for the options items, ViewHolder manages how the view its displayed
 
     private ImageView mainImage;
     private TextView TitleTextView;
 
-    public OptionsViewHolder(View itemView) {
+    public OptionsViewHolder(View itemView) {//When the adapter creates a new ViewHolder this is its constructor
         super(itemView);
 
         this.mainImage = (ImageView) itemView.findViewById(R.id.main_image);
         this.TitleTextView = (TextView) itemView.findViewById(R.id.main_text);
     }
 
-    public void updateUI(Option option){
+    public void updateUI(Option option){//In case a single view is modified, its data is updated here
         String uri = option.getImgUri();
         int resource = mainImage.getResources().getIdentifier(uri,null,mainImage.getContext().getPackageName());
         mainImage.setImageResource(resource);
-
         TitleTextView.setText(option.getOptionTitle());
     }
 }

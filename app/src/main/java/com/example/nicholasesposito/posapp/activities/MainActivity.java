@@ -11,12 +11,19 @@ import android.widget.Toast;
 
 import com.example.nicholasesposito.posapp.R;
 import com.example.nicholasesposito.posapp.fragments.OptionsFragment;
+import com.example.nicholasesposito.posapp.fragments.TransactionFragment;
 import com.example.nicholasesposito.posapp.model.Option;
+import com.example.nicholasesposito.posapp.services.TransactionDataService;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton coffeeButton, drinkButton, cakeButton, sandwichButton, menuButton;
-
+    //Global Variables
+    private ImageButton coffeeButton, drinkButton, cakeButton, sandwichButton, menuButton;
+    private Button chargeButton;
+    private FragmentManager fm = getSupportFragmentManager();
+    double currentCharge = 0;
+    private static MainActivity mainActivity;
+    //Getter and setter for context reference to the Application
     public static MainActivity getMainActivity() {
         return mainActivity;
     }
@@ -25,28 +32,32 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.mainActivity = mainActivity;
     }
 
-    private static MainActivity mainActivity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MainActivity.setMainActivity(this);
-
-        FragmentManager fm = getSupportFragmentManager();
+        //On creating the activity the context is set and the coffee options are put in the view's fragment
         OptionsFragment coffeeFragment = (OptionsFragment) fm.findFragmentById(R.id.optionsFragment);
-
+        TransactionFragment transactionFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
         if(coffeeFragment == null){
             coffeeFragment = OptionsFragment.newInstance(OptionsFragment.OPTION_TYPE_COFFEE);
             fm.beginTransaction().add(R.id.optionsFragment,coffeeFragment).commit();
         }
-
+        //The Transaction details fragment is initialised
+        if(transactionFragment == null){
+            transactionFragment = TransactionFragment.newInstance("blah","kah");
+            fm.beginTransaction().add(R.id.transactionDetailsFragment,transactionFragment).commit();
+        }
+        //References to UI Buttons
         coffeeButton = (ImageButton) findViewById(R.id.coffeesButton);
         drinkButton = (ImageButton) findViewById(R.id.drinksButton);
         cakeButton = (ImageButton) findViewById(R.id.cakesButton);
         sandwichButton = (ImageButton) findViewById(R.id.sandwichButton);
         menuButton = (ImageButton) findViewById(R.id.menuButton);
+        chargeButton = (Button) findViewById(R.id.chargeButton);
 
+        //Click event listeners for menu buttons set a call to the fragment manager to swap the views
         coffeeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,10 +94,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void swapFragments(int option){
-        FragmentManager fm = getSupportFragmentManager();
-        OptionsFragment currentFragment = (OptionsFragment) fm.findFragmentById(R.id.optionsFragment);
+    public void swapFragments(int option){//Method to swap fragment views based on selected menu option
 
+        //A placeholder fragment is initialised here with reference to the "optionsFragment" FrameLayout
+        OptionsFragment currentFragment = (OptionsFragment) fm.findFragmentById(R.id.optionsFragment);
+        //Based on the selected option the corresponding fragment is instanciated here
         switch (option){
             case OptionsFragment.OPTION_TYPE_COFFEE:
                 currentFragment = OptionsFragment.newInstance(OptionsFragment.OPTION_TYPE_COFFEE);
@@ -104,24 +116,20 @@ public class MainActivity extends AppCompatActivity {
                 currentFragment = OptionsFragment.newInstance(OptionsFragment.OPTION_TYPE_MENU);
                 break;
         }
-
+        //The UI Fragment is then replaced here
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.optionsFragment,currentFragment)
                 .commit();
     }
 
-    public void loadDetailScreen(Option selectedOption){
-
-        Context context = getApplicationContext();
-        CharSequence text = "Hello "+selectedOption.getOptionTitle()+"!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.container_main,new Details_fragment())
-//                .addToBackStack(null)
-//                .commit();
+    public void AddTransactionItem(Option selectedOption){//Method to add items to the running sale
+        //When an item is added to the running transaction, a reference to the TransactionDetailsFragment is created here
+        TransactionDataService.getInstance().addiTem(selectedOption.getPrice(),selectedOption.getOptionTitle());
+        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
+        //The UI of TransactionDetailFragment is updated by notifying it's RecyclerView adapter here
+        detailFragment.updateUI();
+        //RunningTotal is calculated here and the button's displaying text is modified accordingly
+        currentCharge+=selectedOption.getPrice();
+        chargeButton.setText("Charge: £"+currentCharge);
     }
 }

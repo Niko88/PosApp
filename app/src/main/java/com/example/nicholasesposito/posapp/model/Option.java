@@ -9,6 +9,12 @@ public class Option {
 
     private String optionTitle;
 
+    double price;
+
+    public double getPrice() {
+        return price;
+    }
+
     public String getOptionTitle() {
         return optionTitle;
     }
@@ -19,8 +25,9 @@ public class Option {
 
     private String imgUri;
 
-    public Option(String optionTitle, String imgUri) {
+    public Option(String optionTitle, String imgUri,double itemPrice) {
         this.optionTitle = optionTitle;
         this.imgUri = imgUri;
+        this.price = itemPrice;
     }
 }
