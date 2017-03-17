@@ -68,7 +68,7 @@
         android:textSize="18dp"
         android:textColor="#2d36e7"
         android:background="#fcffff"
-        android:paddingLeft="53dp"
+        android:paddingLeft="43dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"/>
         <View

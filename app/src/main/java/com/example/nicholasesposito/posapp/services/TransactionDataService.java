@@ -31,4 +31,9 @@ public class TransactionDataService {
     public void addiTem(double price,String name){
         list.add(new TransactionObject(price,name));
     }
+    public void removeItems(){ list.clear();}
+    public void removeItem(int position){ list.remove(position);}
+    public double getItemPrice(int position){
+        return list.get(position).getPrice();
+    }
 }

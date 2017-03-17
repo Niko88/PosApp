@@ -92,6 +92,16 @@ public class MainActivity extends AppCompatActivity {
                 swapFragments(OptionsFragment.OPTION_TYPE_MENU);
             }
         });
+        chargeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TransactionDataService.getInstance().removeItems();
+                TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
+                detailFragment.updateUI();
+                chargeButton.setText("Charge: ");
+                currentCharge=0;
+            }
+        });
     }
 
     public void swapFragments(int option){//Method to swap fragment views based on selected menu option
@@ -130,6 +140,16 @@ public class MainActivity extends AppCompatActivity {
         detailFragment.updateUI();
         //RunningTotal is calculated here and the button's displaying text is modified accordingly
         currentCharge+=selectedOption.getPrice();
-        chargeButton.setText("Charge: £"+currentCharge);
+        chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
+    }
+
+    public void RemoveTransactionItem(int position,double itemPrice){
+        TransactionDataService.getInstance().removeItem(position);
+        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
+        //The UI of TransactionDetailFragment is updated by notifying it's RecyclerView adapter here
+        detailFragment.updateUI();
+        //RunningTotal is calculated here and the button's displaying text is modified accordingly
+        currentCharge-=itemPrice;
+        chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
     }
 }

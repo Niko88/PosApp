@@ -15,7 +15,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="46dp"
+            android:paddingLeft="36dp"
+            android:layout_gravity="center_vertical"
             android:textSize="16sp"
             android:textColor="#121111"
             android:text="Cappuccino" />
@@ -24,18 +25,22 @@
             android:id="@+id/itemPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-
             android:textSize="14sp"
             android:textColor="#494848"
             android:text="£ 2.00" />
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/cancel_button"
+            android:src="@drawable/cancelitembtn"/>
     </LinearLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.5dip"
         android:background="#848181" />
-
-
 
 </LinearLayout>
