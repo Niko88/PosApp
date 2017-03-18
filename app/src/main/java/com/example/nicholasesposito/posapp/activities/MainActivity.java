@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.nicholasesposito.posapp.R;
+import com.example.nicholasesposito.posapp.fragments.ExtraOptionsFragment;
 import com.example.nicholasesposito.posapp.fragments.OptionsFragment;
 import com.example.nicholasesposito.posapp.fragments.TransactionFragment;
 import com.example.nicholasesposito.posapp.model.Option;
@@ -89,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                swapFragments(OptionsFragment.OPTION_TYPE_MENU);
+                //swapFragments(OptionsFragment.OPTION_TYPE_MENU);
+                showMilkOptions();
             }
         });
         chargeButton.setOnClickListener(new View.OnClickListener() {
@@ -151,5 +153,11 @@ public class MainActivity extends AppCompatActivity {
         //RunningTotal is calculated here and the button's displaying text is modified accordingly
         currentCharge-=itemPrice;
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
+    }
+
+    public void showMilkOptions(){
+
+        ExtraOptionsFragment dialogFragment = new ExtraOptionsFragment();
+        dialogFragment.show(fm, "Sample Fragment");
     }
 }

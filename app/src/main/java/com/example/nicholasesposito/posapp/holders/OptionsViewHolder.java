@@ -1,18 +1,21 @@
 package com.example.nicholasesposito.posapp.holders;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nicholasesposito.posapp.R;
+import com.example.nicholasesposito.posapp.activities.MainActivity;
 import com.example.nicholasesposito.posapp.model.Option;
 
 /**
  * Created by nicholasesposito on 16/03/2017.
  */
 
-public class OptionsViewHolder extends RecyclerView.ViewHolder {
+public class OptionsViewHolder extends RecyclerView.ViewHolder{
     //ViewHolder class for the options items, ViewHolder manages how the view its displayed
 
     private ImageView mainImage;
@@ -31,4 +34,5 @@ public class OptionsViewHolder extends RecyclerView.ViewHolder {
         mainImage.setImageResource(resource);
         TitleTextView.setText(option.getOptionTitle());
     }
+
 }
