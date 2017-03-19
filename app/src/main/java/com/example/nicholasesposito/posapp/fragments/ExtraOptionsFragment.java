@@ -40,12 +40,12 @@ public class ExtraOptionsFragment extends DialogFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private double charge;
 
 
     public ExtraOptionsFragment() {
         // Required empty public constructor
     }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -115,6 +115,7 @@ public class ExtraOptionsFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Select Milk type:").setView(view);
+        builder.setCancelable(false);
 
         Button dismiss = (Button) view.findViewById(R.id.dismiss);
         dismiss.setOnClickListener(new View.OnClickListener() {

@@ -39,7 +39,7 @@ public class Option {
 
     public Option(String optionTitle, String imgUri,double itemPrice, boolean extraAvailable) {
         this.optionTitle = optionTitle;
-        this.price = price;
+        this.price = itemPrice;
         this.extraAvailable = extraAvailable;
         this.imgUri = imgUri;
     }

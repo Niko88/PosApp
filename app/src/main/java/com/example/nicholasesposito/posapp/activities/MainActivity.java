@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.nicholasesposito.posapp.R;
 import com.example.nicholasesposito.posapp.fragments.ExtraOptionsFragment;
 import com.example.nicholasesposito.posapp.fragments.OptionsFragment;
+import com.example.nicholasesposito.posapp.fragments.PaymentFragment;
 import com.example.nicholasesposito.posapp.fragments.TransactionFragment;
 import com.example.nicholasesposito.posapp.model.ExtraOptions;
 import com.example.nicholasesposito.posapp.model.Option;
@@ -99,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
         chargeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TransactionDataService.getInstance().removeItems();
-                TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
-                detailFragment.updateUI();
-                chargeButton.setText("Charge: ");
-                currentCharge=0;
+                if(currentCharge!=0){
+                    PaymentFragment paymentFragment = PaymentFragment.newInstance(currentCharge);
+                    paymentFragment.show(fm, "Payment Fragment");
+                    paymentFragment.setCancelable(false);
+                }
             }
         });
     }
@@ -172,7 +173,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void showMilkOptions(){
         dialogFragment = new ExtraOptionsFragment();
-        dialogFragment.show(fm, "Sample Fragment");
+        dialogFragment.show(fm, "Milk options Fragment");
+        dialogFragment.setCancelable(false);
     }
 
     public void addExtra(ExtraOptions option){
@@ -187,5 +189,32 @@ public class MainActivity extends AppCompatActivity {
         TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
         //The UI of TransactionDetailFragment is updated by notifying it's RecyclerView adapter here
         detailFragment.updateUI();
+    }
+
+    public void pay(String type){
+        Toast.makeText(this,currentCharge+" paid in "+type,Toast.LENGTH_SHORT).show();
+        TransactionDataService.getInstance().removeItems();
+        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
+        detailFragment.updateUI();
+        chargeButton.setText("Charge: ");
+        currentCharge=0;
+    }
+
+    public void pay(String type,double amount){
+
+        if (amount >= currentCharge){
+            if(amount > currentCharge) {
+                Toast.makeText(this,currentCharge+" paid in "+type+" Change to be given £"+(amount-currentCharge),Toast.LENGTH_SHORT).show();
+            }
+            Toast.makeText(this,currentCharge+" paid in "+type,Toast.LENGTH_SHORT).show();
+            TransactionDataService.getInstance().removeItems();
+            TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
+            detailFragment.updateUI();
+            chargeButton.setText("Charge: ");
+            currentCharge=0;
+        }else {
+            Toast.makeText(this,currentCharge+" paid in "+type+" Still to be paid £"+(currentCharge-amount),Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

@@ -8,10 +8,9 @@
     card_view:cardCornerRadius="5dp"
     android:layout_marginBottom="5dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
         <ImageView
             android:layout_width="130dp"
             android:layout_height="120dp"
@@ -26,8 +25,18 @@
             android:lines="2"
             android:textColor="#4A4A4A"
             android:textSize="15sp"
+            android:layout_below="@id/main_image"
             android:text="Club Sandwich"
             android:textAlignment="center"/>
-    </LinearLayout>
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:scaleType="centerCrop"
+            android:layout_alignRight="@id/main_image"
+            android:layout_alignTop="@id/main_image"
+            android:visibility="invisible"
+            android:id="@+id/extraImage"
+            android:background="@drawable/round_corners_extra"/>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -18,7 +18,7 @@ import com.example.nicholasesposito.posapp.model.Option;
 public class OptionsViewHolder extends RecyclerView.ViewHolder{
     //ViewHolder class for the options items, ViewHolder manages how the view its displayed
 
-    private ImageView mainImage;
+    private ImageView mainImage,extraAvailable;
     private TextView TitleTextView;
 
     public OptionsViewHolder(View itemView) {//When the adapter creates a new ViewHolder this is its constructor
@@ -26,6 +26,7 @@ public class OptionsViewHolder extends RecyclerView.ViewHolder{
 
         this.mainImage = (ImageView) itemView.findViewById(R.id.main_image);
         this.TitleTextView = (TextView) itemView.findViewById(R.id.main_text);
+        this.extraAvailable = (ImageView) itemView.findViewById(R.id.extraImage);
     }
 
     public void updateUI(Option option){//In case a single view is modified, its data is updated here
@@ -33,6 +34,8 @@ public class OptionsViewHolder extends RecyclerView.ViewHolder{
         int resource = mainImage.getResources().getIdentifier(uri,null,mainImage.getContext().getPackageName());
         mainImage.setImageResource(resource);
         TitleTextView.setText(option.getOptionTitle());
+        if(option.isExtraAvailable())
+        extraAvailable.setVisibility(View.VISIBLE);
     }
 
 }

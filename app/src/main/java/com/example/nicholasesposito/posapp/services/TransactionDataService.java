@@ -21,10 +21,6 @@ public class TransactionDataService {
     private ArrayList<TransactionObject> list = new ArrayList<>();
 
     public ArrayList<TransactionObject> getTransactions(){
-//        list.add(new TransactionObject(2.00,"Espresso"));
-//        list.add(new TransactionObject(2.50,"Cappuccino"));
-//        list.add(new TransactionObject(3.60,"Carrot Cake"));
-//        list.add(new TransactionObject(2.00,"Espresso"));
         return list;
     }
 

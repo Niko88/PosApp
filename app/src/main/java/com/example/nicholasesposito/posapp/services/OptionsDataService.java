@@ -22,6 +22,14 @@ public class OptionsDataService {
         ArrayList<Option> list = new ArrayList<>();
 
         list.add(new Option("Espresso","espresso",2.00));
+        list.add(new Option("Double espresso","doubleespresso",2.50));
+        list.add(new Option("Macchiato","macchiato",2.60,true));
+        list.add(new Option("Cappuccino","cappuccino",2.50,true));
+        list.add(new Option("Flat White","flatwhite",2.70,true));
+        list.add(new Option("Mocha","mocha",2.80,true));
+        list.add(new Option("Espresso","espresso",2.00));
+        list.add(new Option("Double espresso","doubleespresso",2.50));
+        list.add(new Option("Macchiato","macchiato",2.60,true));
         list.add(new Option("Cappuccino","cappuccino",2.50,true));
         list.add(new Option("Flat White","flatwhite",2.70,true));
         list.add(new Option("Mocha","mocha",2.80,true));
