@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by nicholasesposito on 16/03/2017.
  */
 
-public class OptionsAdapter extends RecyclerView.Adapter<OptionsViewHolder> implements View.OnLongClickListener {
+public class OptionsAdapter extends RecyclerView.Adapter<OptionsViewHolder> {
 
     private ArrayList<Option> options;
 
@@ -41,18 +41,22 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsViewHolder> impl
                 MainActivity.getMainActivity().AddTransactionItem(option);
 }
         });
-        holder.itemView.setOnLongClickListener(this);
-                }
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (option.isExtraAvailable()){
+                MainActivity.getMainActivity().showMilkOptions();
+                MainActivity.getMainActivity().AddTransactionItemWithExtra(option);
+                return true;}
+                return false;
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
         return options.size();
     }
 
-    @Override
-    public boolean onLongClick(View view) {
-        MainActivity.getMainActivity().showMilkOptions();
-        return true;
-
-    }
 }

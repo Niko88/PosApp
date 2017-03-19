@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.nicholasesposito.posapp.R;
+import com.example.nicholasesposito.posapp.activities.MainActivity;
 import com.example.nicholasesposito.posapp.adapters.ExtraOptionsAdapter;
+import com.example.nicholasesposito.posapp.model.ExtraOptions;
 import com.example.nicholasesposito.posapp.services.ExtraOptionsService;
 
 import java.util.ArrayList;
@@ -29,6 +31,10 @@ public class ExtraOptionsFragment extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    ExtraOptionsAdapter adapter;
+    ExtraOptions extraOption;
+    Button ok;
 
 
     // TODO: Rename and change types of parameters
@@ -51,6 +57,8 @@ public class ExtraOptionsFragment extends DialogFragment {
     // TODO: Rename and change types and number of parameters
     public static ExtraOptionsFragment newInstance(String param1, String param2) {
         ExtraOptionsFragment fragment = new ExtraOptionsFragment();
+
+
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -95,30 +103,50 @@ public class ExtraOptionsFragment extends DialogFragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_extra_options);
         recyclerView.setHasFixedSize(true);
 
-        ExtraOptionsAdapter adapter;
 
         adapter = new ExtraOptionsAdapter(ExtraOptionsService.getInstance().getExtraOptions());
         recyclerView.setAdapter(adapter);
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("Milk options").setView(view);
+        builder.setTitle("Select Milk type:").setView(view);
 
         Button dismiss = (Button) view.findViewById(R.id.dismiss);
         dismiss.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                MainActivity.getMainActivity().UpdateDetail();
                 dismiss();
             }
         });
 
+        ok = (Button) view.findViewById(R.id.accept);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(extraOption!=null){
+                    MainActivity.getMainActivity().AddTransactionItem(extraOption);
+                    dismiss();
+                }
+            }
+        });
+
+
         return builder.create();
+    }
+
+    public void addExtra(ExtraOptions extraOptionPassed){
+        this.extraOption = extraOptionPassed;
+        ok.setEnabled(true);
+    }
+    public void voidExtra(ExtraOptions extraOptionPassed){
+        ok.setEnabled(false);
     }
 
 }

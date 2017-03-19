@@ -13,6 +13,7 @@ import com.example.nicholasesposito.posapp.R;
 import com.example.nicholasesposito.posapp.fragments.ExtraOptionsFragment;
 import com.example.nicholasesposito.posapp.fragments.OptionsFragment;
 import com.example.nicholasesposito.posapp.fragments.TransactionFragment;
+import com.example.nicholasesposito.posapp.model.ExtraOptions;
 import com.example.nicholasesposito.posapp.model.Option;
 import com.example.nicholasesposito.posapp.services.TransactionDataService;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton coffeeButton, drinkButton, cakeButton, sandwichButton, menuButton;
     private Button chargeButton;
     private FragmentManager fm = getSupportFragmentManager();
+    private ExtraOptionsFragment dialogFragment;
     double currentCharge = 0;
     private static MainActivity mainActivity;
     //Getter and setter for context reference to the Application
@@ -137,27 +139,53 @@ public class MainActivity extends AppCompatActivity {
     public void AddTransactionItem(Option selectedOption){//Method to add items to the running sale
         //When an item is added to the running transaction, a reference to the TransactionDetailsFragment is created here
         TransactionDataService.getInstance().addiTem(selectedOption.getPrice(),selectedOption.getOptionTitle());
-        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
-        //The UI of TransactionDetailFragment is updated by notifying it's RecyclerView adapter here
-        detailFragment.updateUI();
+        UpdateDetail();
         //RunningTotal is calculated here and the button's displaying text is modified accordingly
         currentCharge+=selectedOption.getPrice();
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
     }
 
+    public void AddTransactionItem(ExtraOptions selectedOption){//Method to add items to the running sale
+        //When an item is added to the running transaction, a reference to the TransactionDetailsFragment is created here
+        TransactionDataService.getInstance().addiTem(selectedOption.getItemPrice(),selectedOption.getItemName());
+        UpdateDetail();
+        //RunningTotal is calculated here and the button's displaying text is modified accordingly
+        currentCharge+=selectedOption.getItemPrice();
+        chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
+    }
+
     public void RemoveTransactionItem(int position,double itemPrice){
         TransactionDataService.getInstance().removeItem(position);
-        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
-        //The UI of TransactionDetailFragment is updated by notifying it's RecyclerView adapter here
-        detailFragment.updateUI();
+        UpdateDetail();
         //RunningTotal is calculated here and the button's displaying text is modified accordingly
         currentCharge-=itemPrice;
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
     }
 
-    public void showMilkOptions(){
+    public void AddTransactionItemWithExtra(Option selectedOption){//Method to add items to the running sale
+        //When an item is added to the running transaction, a reference to the TransactionDetailsFragment is created here
+        TransactionDataService.getInstance().addiTem(selectedOption.getPrice(),selectedOption.getOptionTitle());
+        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
+        currentCharge+=selectedOption.getPrice();
+        chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
+    }
 
-        ExtraOptionsFragment dialogFragment = new ExtraOptionsFragment();
+    public void showMilkOptions(){
+        dialogFragment = new ExtraOptionsFragment();
         dialogFragment.show(fm, "Sample Fragment");
+    }
+
+    public void addExtra(ExtraOptions option){
+        dialogFragment.addExtra(option);
+    }
+
+    public void voidExtra(ExtraOptions option){
+        dialogFragment.voidExtra(option);
+    }
+
+    public void UpdateDetail(){
+        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
+        //The UI of TransactionDetailFragment is updated by notifying it's RecyclerView adapter here
+        detailFragment.updateUI();
     }
 }

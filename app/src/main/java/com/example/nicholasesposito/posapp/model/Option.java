@@ -8,8 +8,13 @@ public class Option {
     private String DRAWABLE = "drawable/";
 
     private String optionTitle;
-
     double price;
+
+    public boolean isExtraAvailable() {
+        return extraAvailable;
+    }
+
+    boolean extraAvailable;
 
     public double getPrice() {
         return price;
@@ -29,5 +34,13 @@ public class Option {
         this.optionTitle = optionTitle;
         this.imgUri = imgUri;
         this.price = itemPrice;
+        this.extraAvailable = false;
+    }
+
+    public Option(String optionTitle, String imgUri,double itemPrice, boolean extraAvailable) {
+        this.optionTitle = optionTitle;
+        this.price = price;
+        this.extraAvailable = extraAvailable;
+        this.imgUri = imgUri;
     }
 }
