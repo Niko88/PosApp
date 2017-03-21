@@ -72,7 +72,8 @@ public class PaymentFragment extends DialogFragment {
         builder.setCancelable(false);
 
         Button paymentDismiss = (Button) view.findViewById(R.id.paymentDismiss);
-        Button payButton = (Button) view.findViewById(R.id.paymentButton);
+        Button payButton = (Button) view.findViewById(R.id.paymentCashButton);
+        Button payCardButton = (Button) view.findViewById(R.id.paymenCardtButton);
 
         paymentDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +85,16 @@ public class PaymentFragment extends DialogFragment {
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.getMainActivity().pay("cash",2.60);
+                MainActivity.getMainActivity().pay("cash",import_to_be_charged);
+                dismiss();
+            }
+        });
+
+        payCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.getMainActivity().pay("card",import_to_be_charged);
+                dismiss();
             }
         });
 

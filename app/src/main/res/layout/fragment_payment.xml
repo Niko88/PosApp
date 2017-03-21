@@ -10,12 +10,18 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pay"
-                android:id="@+id/paymentButton"/>
+                android:text="Cash"
+                android:id="@+id/paymentCashButton"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Card"
+                android:id="@+id/paymenCardtButton"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

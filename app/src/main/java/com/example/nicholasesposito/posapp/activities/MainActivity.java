@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
             if(amount > currentCharge) {
                 Toast.makeText(this,currentCharge+" paid in "+type+" Change to be given £"+(amount-currentCharge),Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(this,currentCharge+" paid in "+type,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,String.format( "£%.2f",currentCharge)+" paid in "+type,Toast.LENGTH_SHORT).show();
             TransactionDataService.getInstance().removeItems();
             TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
             detailFragment.updateUI();

@@ -23,6 +23,7 @@ public class ExtraOptionsAdapter extends RecyclerView.Adapter<ExtraOptionsViewHo
 
     private ArrayList<ExtraOptions> extraOptions;
     private int toggledOption;
+    ExtraOptionsViewHolder previous;
     private boolean toggled;
 
     public ExtraOptionsAdapter(ArrayList<ExtraOptions> extraOptions) {
@@ -47,12 +48,16 @@ public class ExtraOptionsAdapter extends RecyclerView.Adapter<ExtraOptionsViewHo
                 if (!toggled){
                     holder.ToggleGreenDotOn();
                     toggledOption = position;
+                    previous = holder;
                     MainActivity.getMainActivity().addExtra(option);
                     toggled = true;
-                }else if(toggledOption == position){
-                    holder.ToggleGreenDotOff();
-                    MainActivity.getMainActivity().voidExtra(option);
-                    toggled = false;
+                }else {
+                    previous.ToggleGreenDotOff();
+                    holder.ToggleGreenDotOn();
+                    previous=holder;
+                    MainActivity.getMainActivity().voidExtra(extraOptions.get(toggledOption));
+                    MainActivity.getMainActivity().addExtra(option);
+                    toggledOption = position;
                 }
             }
         });
