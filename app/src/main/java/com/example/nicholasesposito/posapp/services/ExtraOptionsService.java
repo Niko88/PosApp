@@ -21,10 +21,12 @@ public class ExtraOptionsService {
     public ArrayList<ExtraOptions> getExtraOptions(){
         ArrayList<ExtraOptions> list = new ArrayList<>();
 
-        list.add(new ExtraOptions("Soy Milk",0.80));
-        list.add(new ExtraOptions("Rice Milk",0.80));
-        list.add(new ExtraOptions("Coconut Milk",0.80));
-        list.add(new ExtraOptions("Oat Milk",0.80));
+        list.add(new ExtraOptions("Hazelnut Milk",0.20));
+        list.add(new ExtraOptions("Almond Milk",0.20));
+        list.add(new ExtraOptions("Soya Milk",0.20));
+        list.add(new ExtraOptions("Coconut Milk",0.20));
+        list.add(new ExtraOptions("Oat Milk",0.20));
+        list.add(new ExtraOptions("Rice Milk",0.20));
 
         return list;
     }
