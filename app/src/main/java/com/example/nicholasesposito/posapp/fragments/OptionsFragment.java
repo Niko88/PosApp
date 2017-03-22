@@ -26,7 +26,6 @@ public class OptionsFragment extends Fragment {
     public static final int OPTION_TYPE_COFFEE = 0;
     public static final int OPTION_TYPE_DRINK = 1;
     public static final int OPTION_TYPE_CAKE = 2;
-    public static final int OPTION_TYPE_SANDWICH = 3;
     public static final int OPTION_TYPE_MENU = 4;
 
     private int option_type;
@@ -76,7 +75,7 @@ public class OptionsFragment extends Fragment {
         {adapter = new OptionsAdapter(OptionsDataService.getInstance().geDrinksOptions());}
         else if (option_type == OPTION_TYPE_CAKE)
         {adapter = new OptionsAdapter(OptionsDataService.getInstance().getCakesOptions());}
-        else {adapter = new OptionsAdapter(OptionsDataService.getInstance().getSandwichesOptions());}
+        else {adapter = new OptionsAdapter(OptionsDataService.getInstance().getCoffeeOptions());}
 
         recyclerView.setAdapter(adapter);
 

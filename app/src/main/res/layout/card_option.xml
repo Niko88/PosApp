@@ -12,15 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
-            android:layout_width="130dp"
-            android:layout_height="120dp"
+            android:layout_width="110dp"
+            android:layout_height="90dp"
             android:src="@drawable/panino"
             android:scaleType="centerInside"
+            android:background="#d4ecd4"
             android:paddingBottom="10dp"
             android:id="@+id/main_image"/>
         <TextView
-            android:layout_width="130dp"
-            android:layout_height="40dp"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
             android:id="@+id/main_text"
             android:lines="2"
             android:textColor="#4A4A4A"
@@ -29,8 +30,8 @@
             android:text="Club Sandwich"
             android:textAlignment="center"/>
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:scaleType="centerCrop"
             android:layout_alignRight="@id/main_image"
             android:layout_alignTop="@id/main_image"

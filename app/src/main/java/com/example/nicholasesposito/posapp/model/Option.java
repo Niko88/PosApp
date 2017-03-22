@@ -7,7 +7,7 @@ package com.example.nicholasesposito.posapp.model;
 public class Option {
     private String DRAWABLE = "drawable/";
 
-    private String optionTitle;
+    private String optionTitle,extratype;
     double price;
 
     public boolean isExtraAvailable() {
@@ -18,6 +18,10 @@ public class Option {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getExtratype() {
+        return extratype;
     }
 
     public String getOptionTitle() {
@@ -37,10 +41,11 @@ public class Option {
         this.extraAvailable = false;
     }
 
-    public Option(String optionTitle, String imgUri,double itemPrice, boolean extraAvailable) {
+    public Option(String optionTitle, String imgUri,double itemPrice, boolean extraAvailable, String extratype) {
         this.optionTitle = optionTitle;
         this.price = itemPrice;
         this.extraAvailable = extraAvailable;
         this.imgUri = imgUri;
+        this.extratype = extratype;
     }
 }

@@ -46,7 +46,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsViewHolder> {
             @Override
             public boolean onLongClick(View view) {
                 if (option.isExtraAvailable()){
-                MainActivity.getMainActivity().showMilkOptions();
+                MainActivity.getMainActivity().showExtraOptions(option.getExtratype());
                 MainActivity.getMainActivity().AddTransactionItemWithExtra(option);
                 return true;}
                 return false;

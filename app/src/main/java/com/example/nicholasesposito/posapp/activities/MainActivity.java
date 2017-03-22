@@ -21,8 +21,7 @@ import com.example.nicholasesposito.posapp.services.TransactionDataService;
 public class MainActivity extends AppCompatActivity {
 
     //Global Variables
-    private ImageButton coffeeButton, drinkButton, cakeButton, sandwichButton, menuButton;
-    private Button chargeButton;
+    private Button coffeeButton, drinkButton, cakeButton, sandwichButton, menuButton,chargeButton;
     private FragmentManager fm = getSupportFragmentManager();
     private ExtraOptionsFragment dialogFragment;
     double currentCharge = 0;
@@ -54,11 +53,10 @@ public class MainActivity extends AppCompatActivity {
             fm.beginTransaction().add(R.id.transactionDetailsFragment,transactionFragment).commit();
         }
         //References to UI Buttons
-        coffeeButton = (ImageButton) findViewById(R.id.coffeesButton);
-        drinkButton = (ImageButton) findViewById(R.id.drinksButton);
-        cakeButton = (ImageButton) findViewById(R.id.cakesButton);
-        sandwichButton = (ImageButton) findViewById(R.id.sandwichButton);
-        menuButton = (ImageButton) findViewById(R.id.menuButton);
+        coffeeButton = (Button) findViewById(R.id.coffeesButton);
+        drinkButton = (Button) findViewById(R.id.drinksButton);
+        cakeButton = (Button) findViewById(R.id.cakesButton);
+        menuButton = (Button) findViewById(R.id.menuButton);
         chargeButton = (Button) findViewById(R.id.chargeButton);
 
         //Click event listeners for menu buttons set a call to the fragment manager to swap the views
@@ -83,18 +81,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        sandwichButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                swapFragments(OptionsFragment.OPTION_TYPE_SANDWICH);
-            }
-        });
-
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //swapFragments(OptionsFragment.OPTION_TYPE_MENU);
-                showMilkOptions();
             }
         });
         chargeButton.setOnClickListener(new View.OnClickListener() {
@@ -120,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case OptionsFragment.OPTION_TYPE_DRINK:
                 currentFragment = OptionsFragment.newInstance(OptionsFragment.OPTION_TYPE_DRINK);
-                break;
-            case OptionsFragment.OPTION_TYPE_SANDWICH:
-                currentFragment = OptionsFragment.newInstance(OptionsFragment.OPTION_TYPE_SANDWICH);
                 break;
             case OptionsFragment.OPTION_TYPE_CAKE:
                 currentFragment = OptionsFragment.newInstance(OptionsFragment.OPTION_TYPE_CAKE);
@@ -171,16 +158,15 @@ public class MainActivity extends AppCompatActivity {
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
     }
 
-    public void showMilkOptions(){
-        dialogFragment = new ExtraOptionsFragment();
-        dialogFragment.show(fm, "Milk options Fragment");
+    public void showExtraOptions(String type){
+        dialogFragment = ExtraOptionsFragment.newInstance(type);
+        dialogFragment.show(fm, "Extra options Fragment");
         dialogFragment.setCancelable(false);
     }
 
     public void addExtra(ExtraOptions option){
         dialogFragment.addExtra(option);
     }
-
     public void voidExtra(ExtraOptions option){
         dialogFragment.voidExtra(option);
     }
@@ -189,15 +175,6 @@ public class MainActivity extends AppCompatActivity {
         TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
         //The UI of TransactionDetailFragment is updated by notifying it's RecyclerView adapter here
         detailFragment.updateUI();
-    }
-
-    public void pay(String type){
-        Toast.makeText(this,currentCharge+" paid in "+type,Toast.LENGTH_SHORT).show();
-        TransactionDataService.getInstance().removeItems();
-        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
-        detailFragment.updateUI();
-        chargeButton.setText("Charge: ");
-        currentCharge=0;
     }
 
     public void pay(String type,double amount){

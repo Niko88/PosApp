@@ -17,33 +17,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#edeaea">
-            <ImageButton
+            <Button
                 style="@style/ButtonStyle"
-                android:src="@drawable/coffeeicon"
                 android:id="@+id/coffeesButton"
+                android:text="Hot Drinks"
                 android:layout_marginLeft="10dp"
                 />
-            <ImageButton
+            <Button
                 style="@style/ButtonStyle"
-                android:src="@drawable/drink"
+                android:text="Juices"
                 android:id="@+id/drinksButton"
                 />
-            <ImageButton
+            <Button
                 style="@style/ButtonStyle"
-                android:src="@drawable/cake"
+                android:text="Cakes"
                 android:id="@+id/cakesButton"
                 />
-            <ImageButton
-                style="@style/ButtonStyle"
-                android:src="@drawable/sandwich"
-                android:id="@+id/sandwichButton"
-                />
-            <ImageButton
+            <Button
                 style="@style/ButtonStyle"
                 />
-            <ImageButton
+            <Button
                 style="@style/ButtonStyle"
-                android:src="@drawable/menuicon"
+                android:text="Options"
                 android:id="@+id/menuButton"
                 />
         </LinearLayout>
