@@ -16,6 +16,7 @@ import com.example.nicholasesposito.posapp.fragments.PaymentFragment;
 import com.example.nicholasesposito.posapp.fragments.TransactionFragment;
 import com.example.nicholasesposito.posapp.model.ExtraOptions;
 import com.example.nicholasesposito.posapp.model.Option;
+import com.example.nicholasesposito.posapp.services.FirebaseService;
 import com.example.nicholasesposito.posapp.services.TransactionDataService;
 
 public class MainActivity extends AppCompatActivity {
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         //RunningTotal is calculated here and the button's displaying text is modified accordingly
         currentCharge+=selectedOption.getPrice();
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
+        FirebaseService.getInstance().setVAlue(selectedOption.getOptionTitle());
     }
 
     public void AddTransactionItem(ExtraOptions selectedOption){//Method to add items to the running sale
