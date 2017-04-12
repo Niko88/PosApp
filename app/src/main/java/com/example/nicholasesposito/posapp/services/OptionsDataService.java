@@ -22,16 +22,16 @@ public class OptionsDataService {
     public ArrayList<Option> getCoffeeOptions(){
         ArrayList<Option> list = new ArrayList<>();
 
-        list.add(new Option("Espresso","espressico",2.10));
-        list.add(new Option("Macchiato","macchiatico",2.30,true,"milk"));
-        list.add(new Option("Cappuccino","coffeeico",2.70,true,"milk"));
-        list.add(new Option("Flat White","coffeeico",2.70,true,"milk"));
-        list.add(new Option("Latte","latteico",2.70,true,"milk"));
-        list.add(new Option("Americano","americo",2.50));
-        list.add(new Option("Filter","filterico",2.70));
-        list.add(new Option("Mocha","mochaico",3.00,true,"milk"));
-        list.add(new Option("chocolate","chocolateico",2.70,true,"chocolate"));
-        list.add(new Option("Tea","teaico",2.30,true,"tea"));
+        list.add(new Option("espresso","espressico",2.10));
+        list.add(new Option("macchiato","macchiatico",2.30,true,"milk"));
+        list.add(new Option("cappuccino","coffeeico",2.70,true,"milk"));
+        list.add(new Option("flat white","coffeeico",2.70,true,"milk"));
+        list.add(new Option("latte","latteico",2.70,true,"milk"));
+        list.add(new Option("americano","americo",2.50));
+        list.add(new Option("filter coffee","filterico",2.70));
+        list.add(new Option("mocha","mochaico",3.00,true,"milk"));
+        list.add(new Option("hot chocolate","chocolateico",2.70,true,"chocolate"));
+        list.add(new Option("tea","teaico",2.30,true,"tea"));
 
         return list;
     }
@@ -39,18 +39,18 @@ public class OptionsDataService {
     public ArrayList<Option> geDrinksOptions(){
         ArrayList<Option> list = new ArrayList<>();
 
-        list.add(new Option("After Gym","aico",3.80,true,"powder"));
-        list.add(new Option("Body Detox","bico",3.80,true,"powder"));
-        list.add(new Option("Choco Go","cico",3.80,true,"powder"));
-        list.add(new Option("Fancy Beetroot","fico",3.80,true,"powder"));
-        list.add(new Option("Fit One","fico",3.80,true,"powder"));
-        list.add(new Option("Fresh Start","fico",3.80,true,"powder"));
-        list.add(new Option("Mama Love","mico",3.80,true,"powder"));
-        list.add(new Option("Naked Green","nico",3.80,true,"powder"));
-        list.add(new Option("Simply Orange","sico",3.80,true,"powder"));
-        list.add(new Option("Soo healthy","sico",3.80,true,"powder"));
-        list.add(new Option("Tree Sweet","tico",3.80,true,"powder"));
-        list.add(new Option("Tropical Boost","tico",3.80,true,"powder"));
+        list.add(new Option("after gym","aico",3.80,true,"powder"));
+        list.add(new Option("body detox","bico",3.80,true,"powder"));
+        list.add(new Option("choco go","cico",3.80,true,"powder"));
+        list.add(new Option("fancy beetroot","fico",3.80,true,"powder"));
+        list.add(new Option("fit one","fico",3.80,true,"powder"));
+        list.add(new Option("fresh start","fico",3.80,true,"powder"));
+        list.add(new Option("mama love","mico",3.80,true,"powder"));
+        list.add(new Option("naked green","nico",3.80,true,"powder"));
+        list.add(new Option("simply orange","sico",3.80,true,"powder"));
+        list.add(new Option("soo healthy","sico",3.80,true,"powder"));
+        list.add(new Option("tree sweet","tico",3.80,true,"powder"));
+        list.add(new Option("tropical boost","tico",3.80,true,"powder"));
 
         return list;
     }

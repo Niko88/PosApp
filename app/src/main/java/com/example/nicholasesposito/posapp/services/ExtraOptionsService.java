@@ -21,12 +21,12 @@ public class ExtraOptionsService {
     public ArrayList<ExtraOptions> getExtraMilkOptions(){
         ArrayList<ExtraOptions> list = new ArrayList<>();
 
-        list.add(new ExtraOptions("Hazelnut Milk",0.20));
-        list.add(new ExtraOptions("Almond Milk",0.20));
-        list.add(new ExtraOptions("Soya Milk",0.20));
-        list.add(new ExtraOptions("Coconut Milk",0.20));
-        list.add(new ExtraOptions("Oat Milk",0.20));
-        list.add(new ExtraOptions("Rice Milk",0.20));
+        list.add(new ExtraOptions("hazelnut milk",0.20));
+        list.add(new ExtraOptions("almond milk",0.20));
+        list.add(new ExtraOptions("soya milk",0.20));
+        list.add(new ExtraOptions("coconut milk",0.20));
+        list.add(new ExtraOptions("oat milk",0.20));
+        list.add(new ExtraOptions("rice milk",0.20));
 
         return list;
     }
@@ -34,15 +34,15 @@ public class ExtraOptionsService {
     public ArrayList<ExtraOptions> getExtraPowderOptions(){
         ArrayList<ExtraOptions> list = new ArrayList<>();
 
-        list.add(new ExtraOptions("Spirulina",0.50));
-        list.add(new ExtraOptions("Chlorella",0.50));
-        list.add(new ExtraOptions("Protein",0.50));
-        list.add(new ExtraOptions("Chia Seeds",0.50));
-        list.add(new ExtraOptions("Coconut Oil",0.50));
-        list.add(new ExtraOptions("Goji Berry",0.50));
-        list.add(new ExtraOptions("Banana Powder",0.50));
-        list.add(new ExtraOptions("Agave",0.50));
-        list.add(new ExtraOptions("Wheatgrass",0.50));
+        list.add(new ExtraOptions("spirulina",0.50));
+        list.add(new ExtraOptions("chlorella",0.50));
+        list.add(new ExtraOptions("protein",0.50));
+        list.add(new ExtraOptions("chia seeds",0.50));
+        list.add(new ExtraOptions("coconut oil",0.50));
+        list.add(new ExtraOptions("goji berries",0.50));
+        list.add(new ExtraOptions("banana powder",0.50));
+        list.add(new ExtraOptions("agave",0.50));
+        list.add(new ExtraOptions("wheatgrass powder",0.50));
 
         return list;
     }
@@ -50,12 +50,11 @@ public class ExtraOptionsService {
     public ArrayList<ExtraOptions> getExtraChocolateOptions(){
         ArrayList<ExtraOptions> list = new ArrayList<>();
 
-        list.add(new ExtraOptions("White",0.00));
-        list.add(new ExtraOptions("Dark",0.00));
-        list.add(new ExtraOptions("Milk",0.00));
-        list.add(new ExtraOptions("Peanut Butter",0.30));
-        list.add(new ExtraOptions("Banana",0.30));
-        list.add(new ExtraOptions("Vegan",0.00));
+        list.add(new ExtraOptions("white",0.00));
+        list.add(new ExtraOptions("dark",0.00));
+        list.add(new ExtraOptions("peanut butter",0.30));
+        list.add(new ExtraOptions("banana",0.30));
+        list.add(new ExtraOptions("vegan",0.00));
 
         return list;
     }
@@ -63,7 +62,7 @@ public class ExtraOptionsService {
     public ArrayList<ExtraOptions> getExtraTeaOptions(){
         ArrayList<ExtraOptions> list = new ArrayList<>();
 
-        list.add(new ExtraOptions("Take Away",-0.20));
+        list.add(new ExtraOptions("take away",-0.20));
 
         return list;
     }

@@ -16,8 +16,11 @@ import com.example.nicholasesposito.posapp.fragments.PaymentFragment;
 import com.example.nicholasesposito.posapp.fragments.TransactionFragment;
 import com.example.nicholasesposito.posapp.model.ExtraOptions;
 import com.example.nicholasesposito.posapp.model.Option;
-import com.example.nicholasesposito.posapp.services.FirebaseService;
+import com.example.nicholasesposito.posapp.model.TransactionObject;
 import com.example.nicholasesposito.posapp.services.TransactionDataService;
+import com.example.nicholasesposito.posapp.services.TransactionListUploader;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -132,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
         //RunningTotal is calculated here and the button's displaying text is modified accordingly
         currentCharge+=selectedOption.getPrice();
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
-        FirebaseService.getInstance().setVAlue(selectedOption.getOptionTitle());
     }
 
     public void AddTransactionItem(ExtraOptions selectedOption){//Method to add items to the running sale
@@ -186,6 +188,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,currentCharge+" paid in "+type+" Change to be given £"+(amount-currentCharge),Toast.LENGTH_SHORT).show();
             }
             Toast.makeText(this,String.format( "£%.2f",currentCharge)+" paid in "+type,Toast.LENGTH_SHORT).show();
+            ArrayList<TransactionObject> oldTransaction = new ArrayList<>();
+            oldTransaction.addAll(TransactionDataService.getInstance().getTransactions());
+            new TransactionListUploader().execute(oldTransaction);
             TransactionDataService.getInstance().removeItems();
             TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
             detailFragment.updateUI();
