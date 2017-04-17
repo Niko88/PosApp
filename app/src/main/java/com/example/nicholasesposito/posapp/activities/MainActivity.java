@@ -21,6 +21,7 @@ import com.example.nicholasesposito.posapp.services.TransactionDataService;
 import com.example.nicholasesposito.posapp.services.TransactionListUploader;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity getMainActivity() {
         return mainActivity;
     }
-
     private static void setMainActivity(MainActivity mainActivity) {
         MainActivity.mainActivity = mainActivity;
     }
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //The Transaction details fragment is initialised
         if(transactionFragment == null){
-            transactionFragment = TransactionFragment.newInstance("blah","kah");
+            transactionFragment = TransactionFragment.newInstance();
             fm.beginTransaction().add(R.id.transactionDetailsFragment,transactionFragment).commit();
         }
         //References to UI Buttons
@@ -70,21 +70,18 @@ public class MainActivity extends AppCompatActivity {
                 swapFragments(OptionsFragment.OPTION_TYPE_COFFEE);
             }
         });
-
         drinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 swapFragments(OptionsFragment.OPTION_TYPE_DRINK);
             }
         });
-
         cakeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 swapFragments(OptionsFragment.OPTION_TYPE_CAKE);
             }
         });
-
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void swapFragments(int option){//Method to swap fragment views based on selected menu option
-
         //A placeholder fragment is initialised here with reference to the "optionsFragment" FrameLayout
         OptionsFragment currentFragment = (OptionsFragment) fm.findFragmentById(R.id.optionsFragment);
         //Based on the selected option the corresponding fragment is instanciated here
@@ -137,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
     }
 
-    public void AddTransactionItem(ExtraOptions selectedOption){//Method to add items to the running sale
+    public void AddTransactionItem(ExtraOptions selectedOption){//Method to add extra items to the running sale
         //When an item is added to the running transaction, a reference to the TransactionDetailsFragment is created here
         TransactionDataService.getInstance().addiTem(selectedOption.getItemPrice(),selectedOption.getItemName());
         UpdateDetail();
@@ -146,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
     }
 
-    public void RemoveTransactionItem(int position,double itemPrice){
+    public void RemoveTransactionItem(int position,double itemPrice){//Method to remove one item from the current transaction
         TransactionDataService.getInstance().removeItem(position);
         UpdateDetail();
         //RunningTotal is calculated here and the button's displaying text is modified accordingly
@@ -154,15 +150,15 @@ public class MainActivity extends AppCompatActivity {
         chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
     }
 
-    public void AddTransactionItemWithExtra(Option selectedOption){//Method to add items to the running sale
+    public void AddTransactionItemWithExtra(Option selectedOption){//Method to add items to the running sale on long click for extra
         //When an item is added to the running transaction, a reference to the TransactionDetailsFragment is created here
         TransactionDataService.getInstance().addiTem(selectedOption.getPrice(),selectedOption.getOptionTitle());
-        TransactionFragment detailFragment = (TransactionFragment) fm.findFragmentById(R.id.transactionDetailsFragment);
         currentCharge+=selectedOption.getPrice();
-        chargeButton.setText(String.format( "Charge: £ %.2f",currentCharge));
+        //RunningTotal is calculated here and the button's displaying text is modified accordingly
+        chargeButton.setText(String.format(Locale.ENGLISH,"Charge: £ %.2f",currentCharge));
     }
 
-    public void showExtraOptions(String type){
+    public void showExtraOptions(String type){//Load the extra options fragment
         dialogFragment = ExtraOptionsFragment.newInstance(type);
         dialogFragment.show(fm, "Extra options Fragment");
         dialogFragment.setCancelable(false);
@@ -181,13 +177,13 @@ public class MainActivity extends AppCompatActivity {
         detailFragment.updateUI();
     }
 
-    public void pay(String type,double amount){
+    public void pay(String type,double amount){//Method to manage payments
 
         if (amount >= currentCharge){
             if(amount > currentCharge) {
                 Toast.makeText(this,currentCharge+" paid in "+type+" Change to be given £"+(amount-currentCharge),Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(this,String.format( "£%.2f",currentCharge)+" paid in "+type,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,String.format(Locale.ENGLISH, "£%.2f",currentCharge)+" paid in "+type,Toast.LENGTH_SHORT).show();
             ArrayList<TransactionObject> oldTransaction = new ArrayList<>();
             oldTransaction.addAll(TransactionDataService.getInstance().getTransactions());
             new TransactionListUploader().execute(oldTransaction);

@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by nicholasesposito on 11/04/2017.
@@ -24,41 +25,39 @@ import java.util.Calendar;
 
 public class TransactionListUploader extends AsyncTask<ArrayList<TransactionObject>,Void,Void> {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
-    Calendar calendar;
-    double sales = 0,grossProfit=0;
-    String passedPath = "";
-    String yyy,mmm,ddd,www;
-    ArrayList<TransactionObject> passed;
-    int counter = 0;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference();
+    private double sales = 0,grossProfit=0;
+    private String passedPath = "";
+    private String yyy,mmm,ddd,www;
+    private ArrayList<TransactionObject> passed;
+    private int counter = 0;
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Toast.makeText(MainActivity.getMainActivity(),"Uploading Data",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected Void doInBackground(ArrayList<TransactionObject>... arrayLists) {
         passed = arrayLists[0]; //get passed arraylist
-        calendar = Calendar.getInstance();
-        String year = new SimpleDateFormat("y").format(calendar.getTime());
-        String monthName = new SimpleDateFormat("MMMM").format(calendar.getTime());
-        String weekInMonth = new SimpleDateFormat("W").format(calendar.getTime());
-        String dayName = new SimpleDateFormat("EEEE").format(calendar.getTime());
-        yyy = year;mmm=monthName;www=weekInMonth;ddd=dayName;
+        Calendar calendar = Calendar.getInstance();//get today's date to get year, month, week and day
+        String year = new SimpleDateFormat("y", Locale.ENGLISH).format(calendar.getTime());
+        String monthName = new SimpleDateFormat("MMMM", Locale.ENGLISH).format(calendar.getTime());
+        String weekInMonth = new SimpleDateFormat("W", Locale.ENGLISH).format(calendar.getTime());
+        String dayName = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(calendar.getTime());
+        yyy = year;mmm=monthName;www=weekInMonth;ddd=dayName;//set global variables to be used in inner functions
 
         for (final TransactionObject object:passed
-             ) {
-            sales+=object.getPrice();
+             ) {//Loop through the transaction objects to be loaded on Firebase
+            sales+=object.getPrice();//Calculate sales for the transaction to be uploaded
             myRef.child(year+'/'+monthName+'/'+weekInMonth+'/'+dayName+'/'+object.getName()).runTransaction(new Transaction.Handler() {
                 @Override
-                public Transaction.Result doTransaction(final MutableData currentData) {
-                    if (currentData.getValue() == null) {
+                public Transaction.Result doTransaction(final MutableData currentData) {//Check if the item already exists for the day
+                    if (currentData.getValue() == null) {// if it doesn't exist create an entry
                         currentData.setValue(1);
                     } else {
-                        currentData.setValue((Long) currentData.getValue() + 1);
+                        currentData.setValue((Long) currentData.getValue() + 1);//else add an entry to the count
                     }
                     return Transaction.success(currentData);
                 }
@@ -77,7 +76,7 @@ public class TransactionListUploader extends AsyncTask<ArrayList<TransactionObje
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Double value = (Double) dataSnapshot.getValue();
-                        grossProfitCalculator(value);
+                        grossProfitCalculator(value);//for each item get gross profit value and add it to the current sale gross profit
 
                     }
                     @Override
@@ -86,18 +85,18 @@ public class TransactionListUploader extends AsyncTask<ArrayList<TransactionObje
                     }
                 });
             }
-            upload(sales,"Sales");
+            upload(sales,"Sales");//upload the current sale value
         return null;
     }
 
-    private void grossProfitCalculator(double value){
+    private void grossProfitCalculator(double value){//Calculate and upload gross profit
         grossProfit+=value;
         counter++;
         if (counter == passed.size())
             upload(grossProfit ,"GrossProfit");
     }
 
-    private void upload(double value,String type){
+    private void upload(double value,String type){//create the children path for year,month,week and day
             for(int i = 0; i<4;i++){
                 switch (i){
                     case 0:
@@ -112,18 +111,17 @@ public class TransactionListUploader extends AsyncTask<ArrayList<TransactionObje
                     case 3:
                         passedPath+='/'+ddd;
                 }
-                uploadGPSales(passedPath+'/'+type,value);
+                uploadGPSales(passedPath+'/'+type,value);//upload Sales/Gross profit to the given path
                 if(i==3) passedPath = "";
-                Log.d("Upload",passedPath+'/'+type+" val "+value);
             }
     }
 
-    private void uploadGPSales(final String path, final double passedValue){
+    private void uploadGPSales(final String path, final double passedValue){//Upload values on Firebase
         myRef.child(path).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-                    Double value = (Double) dataSnapshot.getValue();
+                    Double value = setValue(dataSnapshot.getValue());
                     if(value!=null){
                         myRef.child(path).setValue(value+passedValue);
                     }else {
@@ -139,6 +137,17 @@ public class TransactionListUploader extends AsyncTask<ArrayList<TransactionObje
             }
         });
 
+    }
+
+    public Double setValue(Object value) {//If Firebase returns Long, Convert to Double
+        Double val = 0.0;
+        if (value instanceof Double) {
+            val = (Double) value;
+        } else if (value instanceof Long) {
+            String longVal = value.toString();
+            val = Double.parseDouble(longVal);
+        }
+        return val;
     }
 
 }

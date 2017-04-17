@@ -23,7 +23,7 @@ public class ExtraOptionsAdapter extends RecyclerView.Adapter<ExtraOptionsViewHo
 
     private ArrayList<ExtraOptions> extraOptions;
     private int toggledOption;
-    ExtraOptionsViewHolder previous;
+    private ExtraOptionsViewHolder previous;
     private boolean toggled;
 
     public ExtraOptionsAdapter(ArrayList<ExtraOptions> extraOptions) {
@@ -38,26 +38,26 @@ public class ExtraOptionsAdapter extends RecyclerView.Adapter<ExtraOptionsViewHo
     }
 
     @Override
-    public void onBindViewHolder(final ExtraOptionsViewHolder holder, final int position) {
+    public void onBindViewHolder(final ExtraOptionsViewHolder holder, int position) {
         final ExtraOptions option = extraOptions.get(position);
         holder.updateUI(option);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//toggle green dot to the selected item
                 if (!toggled){
                     holder.ToggleGreenDotOn();
-                    toggledOption = position;
-                    previous = holder;
+                    toggledOption = holder.getAdapterPosition();
+                    previous = holder;//reference to the currently toggled item
                     MainActivity.getMainActivity().addExtra(option);
                     toggled = true;
-                }else {
+                }else {//if already toggled toggle previous off and new one on
                     previous.ToggleGreenDotOff();
                     holder.ToggleGreenDotOn();
                     previous=holder;
                     MainActivity.getMainActivity().voidExtra(extraOptions.get(toggledOption));
                     MainActivity.getMainActivity().addExtra(option);
-                    toggledOption = position;
+                    toggledOption = holder.getAdapterPosition();
                 }
             }
         });

@@ -95,21 +95,6 @@ public class ExtraOptionsFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Select "+optionsType+" type:").setView(view);
-//        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                if(extraOption!=null){
-//                    MainActivity.getMainActivity().AddTransactionItem(extraOption);
-//                    dismiss();
-//                }
-//            }
-//        });
-//        builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                dismiss();
-//            }
-//        });
         builder.setCancelable(false);
 
         Button dismiss = (Button) view.findViewById(R.id.dismiss);
